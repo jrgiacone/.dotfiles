@@ -1,0 +1,1 @@
+/home/jrgiacone/.config/xmonad/trayer-padding-icon.sh
