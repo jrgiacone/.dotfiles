@@ -1,0 +1,49 @@
+Config { overrideRedirect = True
+         , font     = "xft:iosevka:weight=bold:pixelsize=12:antialias=true:hinting=true"
+	 , additionalFonts = [ "xft:Mononoki Nerd Font:pixelsize=11:antialias=true:hinting=true"
+	                     , "xft:Font Awesome 5 Free Solid:pixelsize=12"
+			     , "xft:Font Awesome 5 Brands:pixelsize=12"
+			     ]
+         , bgColor  = "#2e3440"
+         , fgColor  = "#eceff4"
+         , position = Top
+         , commands = [ Run Weather "KLGB"
+                          [ "-t", "<fn=2>\xf6c4</fn> <skyCondition> <tempF>°F" -- \xb0 also works \x2109
+                          , "-L", "50"
+                          , "-H", "85"
+                          , "--low"   , "lightblue"
+                          , "--normal", "#8fbcbb"
+                          , "--high"  , "#bf616a"
+                          ] 36000
+
+                      , Run Cpu ["-t", "<fn=2>\xf108</fn> (<total>%)","-H","50","--high","red"] 20
+                      , Run Memory ["-t", "<fn=2>\xf233</fn> <used>M (<usedratio>%)"] 20
+                      , Run Swap [] 10
+		      , Run Com "nvidia-smi" ["--query-gpu=temperature.gpu", "--format=csv,noheader"] "gput" 50
+		      , Run Com "nvidia-smi" ["--query-gpu=power.draw", "--format=csv,noheader"] "gpup" 50 
+                      , Run Date "<fn=2>\xf017</fn> %a %m-%d-%Y <fc=#8be9fd>%H:%M</fc>" "date" 10
+                      , Run XMonadLog
+		              , Run MultiCoreTemp [ "-t" , "<avg>°C",
+		                            "-hwmonitor-path", "/sys/class/hwmon/hwmon*",
+		                            "-L", "60", "-H", "80",
+		                            "-l", "#a3be8c", "-n", "#ebcb8b", "-h", "#bf616a",
+					                "--", "--mintemp", "20", "--maxtemp", "100"] 50
+		              , Run DiskU [("/", "<fn=2>\xf0c7</fn>: <free>")] [] 60
+		              , Run Network "enp38s0" ["-t", "<fn=2>\xf0ab</fn> <rx> <fn=2>\xf0aa</fn> <tx>","-S","True"] 20
+                      , Run DynNetwork ["-t", "<fn=2>\xf0ab</fn> <rx> <fn=2>\xf0aa</fn> <tx>", "-S", "True"] 20
+		              , Run Com "uname" ["-r"] "" 36000
+		              , Run UnsafeXMonadLog
+                      ]
+         , sepChar  = "%"
+         , alignSep = "}{"
+         , template = "%UnsafeXMonadLog% }\
+	     \{<fc=#b3afc2> <fn=3></fn> %uname% </fc> \
+	     \|<fc=#5e81ac> <action=`alacritty -e ncdu /`> %disku% </action> </fc>\
+	     \|<fc=#8fbcbb> <fn=2></fn><action=`alacritty -e nvtop /`> %gput%°C <fn=2></fn> %gpup% </action></fc>\
+	     \|<fc=#bf616a> %multicoretemp% </fc>\
+	     \|<fc=#ebcb8b> <action=`alacritty -e htop`> %cpu% </action> </fc>\
+	     \|<fc=#d08770> <action=`alacritty -e htop`> %memory% * %swap% </action> </fc>\
+	     \|<fc=#81a1c1> %KLGB% </fc>\
+	     \|<fc=#a3be8c> %dynnetwork% </fc>\
+	     \|<fc=#88c0d0> %date% </fc>"
+         }
