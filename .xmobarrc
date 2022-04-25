@@ -23,7 +23,7 @@ Config { overrideRedirect = True
 		      , Run Com "nvidia-smi" ["--query-gpu=power.draw", "--format=csv,noheader"] "gpup" 50
                       , Run Date "<fn=2>\xf017</fn> %a %m-%d-%Y <fc=#88c0d0>%H:%M</fc>" "date" 10
                       , Run XMonadLog
-                      , Run Com "/home/jrgiacone/.config/xmonad/trayer-padding-icon.sh" [] "trayerpad" 10
+                      , Run Com "/home/jrgiacone/.xmonad/trayer-padding-icon.sh" [] "trayerpad" 10
 		              , Run Com "/home/jrgiacone/.local/bin/pacupdate.sh" [] "pacupdate" 36000
 		              , Run MultiCoreTemp [ "-t" , "<fn=2>\xf769</fn> <avg>°C",
 		                            "-hwmonitor-path", "/sys/module/k10temp/drivers/pci:k10temp/0000:00:18.3/hwmon/hwmon2",

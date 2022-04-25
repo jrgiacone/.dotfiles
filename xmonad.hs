@@ -82,7 +82,7 @@ myKeys =
         , ("M-S-<Return>" , spawn "rofi -show drun")
         , ("M1-<Tab>" , spawn "rofi -show window")
         --, ("M-p q",  spawn  "dmpower")
-        , ("M-p q", spawn "rofi -show power-menu -modi power-menu:rpower")
+        , ("M-p q", spawn "rofi -show power-menu -modi power-menu:/home/jrgiacone/.local/bin/rpower")
         , ("M-<Backspace>", promote)
         , ("M-b", sendMessage ToggleStruts)
         , ("M-p d", spawn "dual.sh")
@@ -107,8 +107,8 @@ myKeys =
 
 -- Xxmobar Definitions/Callouts
 
-xmobar1 = statusBarProp "xmobar -x 0 ~/.config/xmonad/.xmobarrc" (myXmobarPP) 
-xmobar2 = statusBarProp "xmobar -x 1 ~/.config/xmonad/.xmobarrc1" (myXmobarPP)
+xmobar1 = statusBarProp "xmobar -x 0 ~/.xmonad/.xmobarrc" (myXmobarPP) 
+xmobar2 = statusBarProp "xmobar -x 1 ~/.xmonad/.xmobarrc1" (myXmobarPP)
 
 -- Dynamic Xmobars
 
