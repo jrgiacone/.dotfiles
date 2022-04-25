@@ -1,0 +1,11 @@
+configuration {
+
+    fixed-num-lines: false;
+    display-ssh:    "";
+    display-run:    "";
+    display-drun:   "";
+    display-window: "";
+    display-combi:  "";
+    show-icons:     true;
+}
+@theme "/home/jrgiacone/.config/rofi/themes/nord.rasi"
