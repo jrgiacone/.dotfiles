@@ -1,0 +1,43 @@
+use_nerdfont = false
+notify = true
+bitrate = 320
+gapless = true
+audio_cache_size = 400
+
+
+# [theme]
+# #background = "black"
+# primary = "light white"
+# secondary = "light black"
+# title = "green"
+# playing = "green"
+# playing_selected = "light green"
+# playing_bg = "black"
+# highlight = "light white"
+# highlight_bg = "#484848"
+# error = "light white"
+# error_bg = "red"
+# statusbar = "black"
+# statusbar_progress = "green"
+# statusbar_bg = "green"
+# cmdline = "light white"
+# cmdline_bg = "black"
+# search_match = "light red"
+ 
+[theme]
+primary = "#d8dee9"
+secondary = "light black"
+title = "#88c0d0"
+playing = "#8fbcbb"
+playing_selected = "#8fbcbb"
+playing_bg = "black"
+highlight = "#d8dee9"
+highlight_bg = "#2e3440"
+error = "#d8dee9"
+error_bg = "red"
+statusbar = "black"
+statusbar_progress = "#5e81ac"
+statusbar_bg = "#5e81ac"
+cmdline = "#d8dee9"
+cmdline_bg = "black"
+search_match = "light red"
