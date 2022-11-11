@@ -1,14 +1,14 @@
 Config { overrideRedirect = True
-         , font     = "xft:iosevka:weight=bold:pixelsize=14:antialias=true:hinting=true"
-	 , additionalFonts = [ "xft:Mononoki Nerd Font:pixelsize=11:antialias=true:hinting=true"
-	                     , "xft:Font Awesome 5 Free Solid:pixelsize=12"
-			     , "xft:Font Awesome 5 Brands:pixelsize=12"
+         , font     = "iosevka bold 12"
+	 , additionalFonts = [ "Mononoki Nerd Font 12"
+	                     , "Font Awesome 6 Free Solid 10"
+			     , "Font Awesome 6 Brands Regular 10"
 			     ]
          , bgColor  = "#2e3440"
          , fgColor  = "#eceff4"
-         , position = Top 
+         , position = TopH 20
          , commands = [ Run Weather "KLGB"
-                          [ "-t", "<fn=2>\xf6c4</fn> <skyCondition> <tempF>°F" -- \xb0 also works \x2109
+                          [ "-t", "<fn=2>\xf0c2</fn> <skyCondition> <tempF>°F" -- \xb0 also works \x2109
                           , "-L", "50"
                           , "-H", "85"
                           , "--low"   , "lightblue"
@@ -23,8 +23,10 @@ Config { overrideRedirect = True
 		      , Run Com "nvidia-smi" ["--query-gpu=power.draw", "--format=csv,noheader"] "gpup" 50
                       , Run Date "<fn=2>\xf017</fn> %a %m-%d-%Y <fc=#88c0d0>%H:%M</fc>" "date" 10
                       , Run XMonadLog
-                      , Run Com "/home/jrgiacone/.xmonad/trayer-padding-icon.sh" [] "trayerpad" 10
+                      , Run Com "/home/jrgiacone/.config/xmonad/trayer-padding-icon.sh" [] "trayerpad" 10
 		              , Run Com "/home/jrgiacone/.local/bin/pacupdate.sh" [] "pacupdate" 36000
+                      , Run Com "echo" ["<fn=3>\xf17c</fn>"] "penguin" 3600
+                      , Run Com "echo" ["<fn=2>\xf769</fn>"] "therm" 3600
 		              , Run MultiCoreTemp [ "-t" , "<fn=2>\xf769</fn> <avg>°C",
 		                            "-hwmonitor-path", "/sys/module/k10temp/drivers/pci:k10temp/0000:00:18.3/hwmon/hwmon2",
 		                            "-L", "60", "-H", "80",
@@ -33,21 +35,19 @@ Config { overrideRedirect = True
                       , Run DiskU [("/", "<fn=2>\xf0c7</fn>: <free>")] [] 60
 		              , Run Network "enp38s0" ["-t", "<fn=2>\xf0ab</fn> <rx> <fn=2>\xf0aa</fn> <tx>", "-S", "True"] 20
 		              , Run DynNetwork ["-t", "<fn=2>\xf0ab</fn> <rx> <fn=2>\xf0aa</fn> <tx>", "-S", "True"] 20
-                      , Run Com "/home/jrgiacone/.local/bin/followplay" [] "artist" 60
 		              , Run Com "uname" ["-r"] "" 36000
 		              , Run UnsafeXMonadLog
                       ]
          , sepChar  = "%"
          , alignSep = "}{"
          , template = "%UnsafeXMonadLog% }\
-	     \{<fc=#b3afc2> <fn=2></fn> %artist% </fc>\
-	     \|<fc=#b3afc2> <fn=3></fn> %uname% </fc>\
+	     \{<fc=#b3afc2> %penguin% %uname% </fc>\
 	     \|<fc=#b48ead> <fn=2></fn><action=`alacritty -e sudo pacman -Syu`> %pacupdate%</action></fc>\
 	     \|<fc=#5e81ac> <action=`alacritty -e ncdu /`>%disku% </action></fc>\
-	     \|<fc=#8fbcbb> <fn=2></fn><action=`alacritty -e nvtop /`> %gput%°C <fn=2></fn> %gpup% </action></fc>\
-	     \|<fc=#bf616a> <action=`alacritty -e htop`>%multicoretemp% </action></fc>\
-	     \|<fc=#ebcb8b> <action=`alacritty -e htop`>%cpu% </action></fc>\
-	     \|<fc=#d08770> <action=`alacritty -e htop`>%memory% </action></fc>\
+	     \|<fc=#8fbcbb> %therm%<action=`alacritty -e nvtop /`> %gput%°C <fn=2></fn> %gpup% </action></fc>\
+	     \|<fc=#bf616a> <action=`alacritty -e btop`>%multicoretemp% </action></fc>\
+	     \|<fc=#ebcb8b> <action=`alacritty -e btop`>%cpu% </action></fc>\
+	     \|<fc=#d08770> <action=`alacritty -e btop`>%memory% </action></fc>\
 	     \|<fc=#81a1c1> %KLGB% </fc>\
 	     \|<fc=#a3be8c> %dynnetwork% </fc>\
 	     \|<fc=#88c0d0> %date% </fc>\

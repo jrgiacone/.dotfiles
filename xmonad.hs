@@ -77,38 +77,42 @@ myKeys =
         , ("M-S-z", spawn "xscreensaver-command -lock")
         , ("M-S-=", unGrab *> spawn "scrot -s ~/Personal/Pictures/screenShots/%Y-%m-%d-%T-screenshot.png")
         , ("M-]"  , spawn "firefox"                   )
-        , ("M-["  , spawn "flatpak run org.chromium.Chromium"                  )
+        , ("M-["  , spawn "chromium"                  )
         --, ("M-S-<Return>" , spawn "dmenu_run -i -p \"Run: \"")
         , ("M-S-<Return>" , spawn "rofi -show drun")
         , ("M1-<Tab>" , spawn "rofi -show window")
         --, ("M-p q",  spawn  "dmpower")
-        , ("M-p q", spawn "rofi -show power-menu -modi power-menu:/home/jrgiacone/.local/bin/rpower")
+        , ("M-p q", spawn "rofi -show power-menu -modi power-menu:rpower")
         , ("M-<Backspace>", promote)
         , ("M-b", sendMessage ToggleStruts)
         , ("M-p d", spawn "dual.sh")
         , ("M-p s", spawn "single.sh")
         , ("M-p o", spawn "xset dpms force off")
         , ("C-e t", namedScratchpadAction myScratchpads "terminal")
-        , ("M-p c", spawn "picom --experimental-backends")
+        , ("M-p c", spawn "picom")
         , ("M-p x", spawn "pkill picom")
         , ("M-g",  toggleGaps)
         , ("M-f", toggleFullScreen)
         , ("M-C-r", spawn "xmonad --recompile")
         , ("M-S-r", spawn "xmonad --restart")
         , ("C-e e", spawn (myEmacs ))
+        , ("C-e i", spawn "alacritty -e sh -c 'sleep 0.1 && $(which lvim) $*'")
         , ("C-e f", spawn "alacritty -e vifm")
+        , ("C-s s", spawn "steam")
         , ("C-e u" , spawn "alacritty --working-directory ~/.config/xmonad/ -e ./update.sh")
         , ("C-S-l", spawn "locate.sh")
         , ("C-m .", spawn "playerctl -p ncspot next")
         , ("C-m ,", spawn "playerctl -p ncspot previous")
         , ("C-m <Space>", spawn "playerctl -p ncspot play-pause")
         , ("C-e m", namedScratchpadAction myScratchpads "ncspot")
+        , ("C-g u", spawn "sudo undervolt")
+        , ("C-g r", spawn "sudo resetGpu")
         ]
 
 -- Xxmobar Definitions/Callouts
 
-xmobar1 = statusBarProp "xmobar -x 0 ~/.xmonad/.xmobarrc" (myXmobarPP) 
-xmobar2 = statusBarProp "xmobar -x 1 ~/.xmonad/.xmobarrc1" (myXmobarPP)
+xmobar1 = statusBarProp "xmobar -x 0 ~/.config/xmonad/.xmobarrc" (myXmobarPP) 
+xmobar2 = statusBarProp "xmobar -x 1 ~/.config/xmonad/.xmobarrc1" (myXmobarPP)
 
 -- Dynamic Xmobars
 
@@ -135,7 +139,7 @@ trayerSB = staticStatusBar
     , "--tint 0x282c34"
     , "--height 20"
     , "-l"
-    , "--padding 2"
+    , "--padding 6"
     , "--SetDockType true"
     , "--SetPartialStrut true"
     ]
@@ -145,13 +149,12 @@ trayerSB = staticStatusBar
 
 myStartupHook :: X()
 myStartupHook = do
-    spawnOnce "picom --experimental-backends &"
+    spawnOnce "picom"
     spawnOnce "nitrogen --restore"
     spawnOnce "udiskie -t"
     spawnOnce "nm-applet"
     spawnOnce "dunst"
-    spawnOnce "unclutter"
-    --spawnOnce "easyeffects --gapplication-service"
+    spawnOnce "easyeffects --gapplication-service"
     spawnOnce "polychromatic-tray-applet"
     --spawnOnce "/usr/bin/emacs --daemon &"
 
@@ -161,6 +164,7 @@ myManageHook :: ManageHook
 myManageHook = composeAll
     [ className =? "Gimp" --> doFloat
     , isDialog            --> doFloat
+    , isFullscreen        --> doFullFloat
     ] <+> namedScratchpadManageHook myScratchpads
 
 -- Custom Functions
@@ -179,7 +183,7 @@ toggleFullScreen = do
 -- Scratch Pads
 
 myScratchpads :: [NamedScratchpad]
-myScratchpads = [ NS "ncspot" "alacritty -t ncspot -e /home/jrgiacone/.cargo/bin/ncspot" (title =? "ncspot")
+myScratchpads = [ NS "ncspot" "alacritty -t ncspot -e ncspot" (title =? "ncspot")
                       (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3)),
                   NS "terminal" "alacritty -t scratchpad" (title =? "scratchpad")
                       (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))]
