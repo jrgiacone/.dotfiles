@@ -21,10 +21,11 @@ Config { overrideRedirect = True
                       , Run Swap [] 10
 		      , Run Com "nvidia-smi" ["--query-gpu=temperature.gpu", "--format=csv,noheader"] "gput" 50
 		      , Run Com "nvidia-smi" ["--query-gpu=power.draw", "--format=csv,noheader"] "gpup" 50
+		      , Run Com "/home/jrgiacone/.config/xmonad/disk" [] "disk" 60
                       , Run Date "<fn=2>\xf017</fn> %a %m-%d-%Y <fc=#88c0d0>%H:%M</fc>" "date" 10
                       , Run XMonadLog
                       , Run Com "/home/jrgiacone/.config/xmonad/trayer-padding-icon.sh" [] "trayerpad" 10
-		              , Run Com "/home/jrgiacone/.local/bin/pacupdate.sh" [] "pacupdate" 36000
+		      --        , Run Com "/home/jrgiacone/.local/bin/pacupdate.sh" [] "pacupdate" 36000
                       , Run Com "echo" ["<fn=3>\xf17c</fn>"] "penguin" 3600
                       , Run Com "echo" ["<fn=2>\xf769</fn>"] "therm" 3600
 		              , Run MultiCoreTemp [ "-t" , "<fn=2>\xf769</fn> <avg>°C",
@@ -32,7 +33,7 @@ Config { overrideRedirect = True
 		                            "-L", "60", "-H", "80",
 		                            "-l", "#a3be8c", "-n", "#ebcb8b", "-h", "#bf616a",
 					                "--", "--mintemp", "20", "--maxtemp", "100"] 50
-                      , Run DiskU [("/", "<fn=2>\xf0c7</fn>: <free>")] [] 60
+                      , Run DiskU [("tank/home", "<fn=2>\xf0c7</fn>: <free>")] [] 60
 		              , Run Network "enp38s0" ["-t", "<fn=2>\xf0ab</fn> <rx> <fn=2>\xf0aa</fn> <tx>", "-S", "True"] 20
 		              , Run DynNetwork ["-t", "<fn=2>\xf0ab</fn> <rx> <fn=2>\xf0aa</fn> <tx>", "-S", "True"] 20
 		              , Run Com "uname" ["-r"] "" 36000
@@ -42,8 +43,8 @@ Config { overrideRedirect = True
          , alignSep = "}{"
          , template = "%UnsafeXMonadLog% }\
 	     \{<fc=#b3afc2> %penguin% %uname% </fc>\
-	     \|<fc=#b48ead> <fn=2></fn><action=`alacritty -e sudo pacman -Syu`> %pacupdate%</action></fc>\
-	     \|<fc=#5e81ac> <action=`alacritty -e ncdu /`>%disku% </action></fc>\
+	     -- \|<fc=#b48ead> <fn=2></fn><action=`alacritty -e sudo pacman -Syu`> %pacupdate%</action></fc>\
+	     \|<fc=#5e81ac><action=`alacritty -e ncdu /`>%disk% </action></fc>\
 	     \|<fc=#8fbcbb> %therm%<action=`alacritty -e nvtop /`> %gput%°C <fn=2></fn> %gpup% </action></fc>\
 	     \|<fc=#bf616a> <action=`alacritty -e btop`>%multicoretemp% </action></fc>\
 	     \|<fc=#ebcb8b> <action=`alacritty -e btop`>%cpu% </action></fc>\

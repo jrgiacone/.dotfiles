@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 pkill picom
 xrandr --output DP-4 --off
 #sleep 1

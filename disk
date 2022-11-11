@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+cupd=$(df /home/ -h --output=avail | tail -n 1)
+echo "$cupd"
+

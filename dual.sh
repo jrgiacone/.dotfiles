@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #xrandr --output DP-4 --off
 pkill picom
 xrandr --output DP-4 --mode 1920x1080 --rate 144 --dpi 92 --left-of DP-2
