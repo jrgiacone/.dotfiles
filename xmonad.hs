@@ -75,7 +75,7 @@ myKeys :: [(String, X())]
 myKeys =
         [ ("M-<Return>", spawn (myTerminal))
         , ("M-S-z", spawn "xscreensaver-command -lock")
-        , ("M-S-=", unGrab *> spawn "scrot -s ~/Personal/Pictures/screenShots/%Y-%m-%d-%T-screenshot.png")
+        , ("M-S-=", unGrab *> spawn "scrot -s ~/Pictures/screenShots/%Y-%m-%d-%T-screenshot.png")
         , ("M-]"  , spawn "firefox"                   )
         , ("M-["  , spawn "chromium"                  )
         --, ("M-S-<Return>" , spawn "dmenu_run -i -p \"Run: \"")
@@ -96,7 +96,7 @@ myKeys =
         , ("M-C-r", spawn "xmonad --recompile")
         , ("M-S-r", spawn "xmonad --restart")
         , ("C-e e", spawn (myEmacs ))
-        , ("C-e i", spawn "alacritty -e sh -c 'sleep 0.1 && $(which lvim) $*'")
+        , ("C-e i", spawn "alacritty -e sh -c 'sleep 0.1 && $(which nvim) $*'")
         , ("C-e f", spawn "alacritty -e vifm")
         , ("C-s s", spawn "steam")
         , ("C-e u" , spawn "alacritty --working-directory ~/.config/xmonad/ -e ./update.sh")
