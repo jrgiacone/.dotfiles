@@ -142,7 +142,6 @@
 
     git
     gh
-    neovim
     steam
 
     rofi

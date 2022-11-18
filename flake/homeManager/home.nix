@@ -1,5 +1,10 @@
 { config, home, pkgs, ... }:
 
+let
+
+customNeovim = import ./nvim.nix;
+
+in
 {
 
   imports = [
@@ -14,13 +19,19 @@
 
     packages = with pkgs; [
       htop
+      ripgrep
+      neovim-unwrapped
       heroic
       gamemode
       (pkgs.libsForQt5.callPackage ./polychromatic.nix { inherit (pkgs) meson wrapGAppsHook; })
-      libappindicator
-      libappindicator-gtk3
+      lxappearance
+      lazygit
+      papirus-icon-theme
     ];
   };
   programs.home-manager.enable = true;
+  programs.neovim = customNeovim pkgs;
+
+
 
 }

@@ -1,30 +1,26 @@
 { lib
 , fetchFromGitHub
 , bash
-, cairo
 , glib
 , qt5
-, hicolor-icon-theme
 , gdk-pixbuf
+, gettext
 , imagemagick
-, desktop-file-utils
 , ninja
 , meson
 , sassc
-, ibus
-, usbutils
 , libxcb
 , python3Packages
 , gobject-introspection
+, libappindicator-gtk3
+, qtsvg
 , gtk3
 , wrapGAppsHook
-, libappindicator
 }:
 
 python3Packages.buildPythonApplication rec {
   name = "polychromatic";
   version = "0.7.3";
-
   format = "other";
 
   src = fetchFromGitHub {
@@ -39,57 +35,42 @@ python3Packages.buildPythonApplication rec {
     substituteInPlace scripts/build-styles.sh \
       --replace '$(which sassc 2>/dev/null)' '${sassc}/bin/sassc' \
       --replace '$(which sass 2>/dev/null)' '${sassc}/bin/sass'
-    substituteInPlace pylib/common.py --replace "/usr/share/polychromatic" "$out/share/polychromatic"
+    substituteInPlace pylib/common.py \
+      --replace "/usr/share/polychromatic" "$out/share/polychromatic"
   '';
 
   preConfigure = ''
     scripts/build-styles.sh
   '';
 
-  buildInputs = [
-    cairo
-    hicolor-icon-theme
-  ];
-
-  pythonPath = with python3Packages; [
-    openrazer
-    pyqt5
-    pyqtwebengine
+  nativeBuildInputs = with python3Packages; [
+    gettext
+    gobject-introspection
+    meson
+    ninja
+    sassc
+    wrapGAppsHook
+    qt5.wrapQtAppsHook
+    qtsvg
   ];
 
   propagatedBuildInputs = with python3Packages; [
-    libxcb
-    colour
     colorama
-    setproctitle
-    openrazer
-    openrazer-daemon
-    requests
-    ibus
-    usbutils
-    pyqt5
-    libappindicator
-  ];
-
-  nativeBuildInputs = with python3Packages; [
-    pyqt5
-    desktop-file-utils
-    qt5.wrapQtAppsHook
-    wrapGAppsHook
-    ninja
-    meson
-    sassc
-  ];
-
-  propagatedNativeBuildInputs = [
-    gobject-introspection
+    colour
     gtk3
-    gdk-pixbuf
-    imagemagick
+    openrazer
+    pygobject3
+    pyqt5
+    pyqtwebengine
+    requests
+    setproctitle
   ];
+
+  dontWrapGapps = true;
+  dontWrapQtApps = false;
 
   makeWrapperArgs = [
-    "\${qtWrapperArgs[@]}"
+    "\${gappsWrapperArgs[@]}"
   ];
 
   meta = with lib; {
