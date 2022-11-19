@@ -9,9 +9,14 @@
       # url = github:nix-community/home-manager/release-22.05;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      # build with your own instance of nixpkgs
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager }:
+  outputs = { self, nixpkgs, home-manager, hyprland }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -25,6 +30,8 @@
         jrgiacone = lib.nixosSystem {
           inherit system;
 	  modules = [ 
+      hyprland.nixosModules.default
+      { programs.hyprland.enable = true; }
 	    ./modules/hardware-configuration.nix
 	    ./modules/default.nix 
 	    ./modules/nvidia.nix

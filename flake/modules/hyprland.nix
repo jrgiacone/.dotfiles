@@ -14,8 +14,9 @@
       modules = [
         hyprland.nixosModules.default
         { programs.hyprland.enable = true; }
+        { programs.hyprland.package = pkgs.hyprland-nvidia; }
         # ...
       ];
     };
   };
-
+}

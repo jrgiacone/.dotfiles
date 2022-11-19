@@ -27,6 +27,9 @@ in
       lxappearance
       lazygit
       papirus-icon-theme
+      wofi
+      gamemode
+      mangohud
     ];
   };
   programs.home-manager.enable = true;

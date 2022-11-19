@@ -127,7 +127,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    firefox # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #firefox # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    firefox-bin
     chromium
     discord
     pavucontrol
